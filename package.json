@@ -1,0 +1,32 @@
+{
+  "name": "feral",
+  "version": "1.0.0",
+  "description": "Feral home page",
+  "scripts": {
+    "backend:build": "node app.js",
+    "backend:dev": "nodemon app.js",
+    "frontend:build": "parcel build app/index.js",
+    "frontend:dev": "parcel styles/index.scss assets/* --dist-dir ./public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roowilliams/feral.git"
+  },
+  "author": "@roowilliams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roowilliams/feral/issues"
+  },
+  "homepage": "https://github.com/roowilliams/feral#readme",
+  "devDependencies": {
+    "@parcel/transformer-image": "^2.0.0-rc.0",
+    "@parcel/transformer-pug": "^2.0.0-rc.0",
+    "@parcel/transformer-sass": "^2.0.0-rc.0",
+    "parcel": "^2.0.0-rc.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.13",
+    "pug": "^3.0.2"
+  }
+}
