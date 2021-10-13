@@ -1,0 +1,10 @@
+.content__words
+  <p>
+    | I am 
+  each item, index in words
+    span.words_word(class=`i_am__word--${item.data.word.replace(/\s+/g, '_')}`) #{item.data.word}
+    if index < words.length-1
+      |, 
+    else
+      |.
+  </p>

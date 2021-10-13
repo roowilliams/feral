@@ -4,6 +4,9 @@ const path = require('path')
 const app = express()
 const port = 3000
 
+const find = require('lodash/find')
+const filter = require('lodash/filter')
+
 const Prismic = require('@prismicio/client')
 var PrismicDOM = require('prismic-dom')
 
@@ -44,17 +47,24 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.get('/', async (req, res) => {
   initApi(req).then((api) => {
     api
-      .query(
-        Prismic.Predicates.any('document.type', ['preloader', 'index_page'])
-      )
+      .query([
+        Prismic.Predicates.any('document.type', [
+          'preloader',
+          'index_page',
+          'word_page'
+        ])
+      ])
       .then((response) => {
         const { results } = response
-        const [page, preloader] = results
+        const preloader = find(results, { type: 'preloader' })
+        const page = find(results, { type: 'index_page' })
+        const words = filter(results, { type: 'word_page' })
+        console.log(words)
 
-        console.log(preloader, page)
         res.render('index', {
           preloader,
           page,
+          words,
           meta: { description: 'desc', title: 'yolo' }
         })
       })

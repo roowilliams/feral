@@ -1,0 +1,16 @@
+.home {
+  &__wrapper {
+    width: 100%;
+  }
+}
+
+.content {
+  &__hello,
+  &__blurb {
+    font: 1.2rem $font-nm-regular;
+  }
+
+  &__words {
+    font: 3rem $font-nm-bold;
+  }
+}

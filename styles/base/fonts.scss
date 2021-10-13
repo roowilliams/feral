@@ -1,0 +1,17 @@
+@import '../utils/variables';
+
+@font-face {
+  font-family: $font-nm-bold;
+  src: url('../fonts/NeueMontreal-Bold.woff2') format('woff2'),
+    url('../fonts/NeueMontreal-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: $font-nm-regular;
+  src: url('../fonts/NeueMontreal-Regular.woff2') format('woff2'),
+    url('../fonts/NeueMontreal-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
