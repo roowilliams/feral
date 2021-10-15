@@ -9,7 +9,6 @@ html(lang="en")
     .preloader__number
      | 0%
 
-block content
   .home
     .home__wrapper
       .content
@@ -19,3 +18,4 @@ block content
           
           .content__blurb !{ PrismicDOM.RichText.asHtml(page.data.blurb) }
           
+  script(src="app/index.js")

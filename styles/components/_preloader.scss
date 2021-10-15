@@ -4,4 +4,6 @@
 }
 
 .preloader__number {
+  @extend %text-36;
+  display: none;
 }

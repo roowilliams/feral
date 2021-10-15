@@ -1,18 +1,32 @@
 .home {
   @extend %cover;
   &__wrapper {
-    width: 100%;
+    @extend %cover;
+    display: flex;
+    justify-content: center;
   }
 }
 
 .content {
+  margin-top: 10rem;
+  max-width: 83rem;
+
+  @include media('<phone') {
+    margin: 2rem 4rem;
+  }
   &__hello,
   &__blurb {
-    font: 1.2rem $font-nm-regular;
+    @extend %text-36;
+    color: $color-snow;
+    margin-top: 4rem;
+    max-width: 70rem;
   }
 
   &__words {
-    font: 3rem $font-nm-bold;
+    @extend %text-72;
+    margin-top: 4rem;
+    font-family: $font-nm-bold;
+    max-width: 83rem;
   }
 }
 
