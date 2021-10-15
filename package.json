@@ -6,7 +6,7 @@
     "backend:build": "node app.js",
     "backend:dev": "nodemon app.js",
     "frontend:build": "parcel build app/index.js",
-    "frontend:dev": "parcel styles/index.scss assets/* --dist-dir ./public"
+    "frontend:dev": "parcel styles/main.scss assets/* --dist-dir ./public"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,9 @@
   "dependencies": {
     "@prismicio/client": "^5.1.0",
     "express": "^4.17.1",
+    "include-media": "^1.4.10",
     "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.13",
     "prismic-dom": "^2.2.6",
     "pug": "^3.0.2"

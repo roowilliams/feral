@@ -1,4 +1,5 @@
 require('dotenv').config()
+const morgan = require('morgan')
 const express = require('express')
 const path = require('path')
 const app = express()
@@ -30,7 +31,7 @@ function initApi(req) {
 }
 
 // Middleware to inject prismic context
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.locals.ctx = {
     endpoint: process.env.PRISMIC_API_ENDPOINT,
     linkResolver: linkResolver
@@ -39,35 +40,31 @@ app.use(function (req, res, next) {
   res.locals.PrismicDOM = PrismicDOM
   next()
 })
+app.use(express.static(path.join(__dirname, 'public')))
+app.use(morgan('tiny'))
 
 app.set('view engine', 'pug')
 
-app.use(express.static(path.join(__dirname, 'public')))
-
 app.get('/', async (req, res) => {
-  initApi(req).then((api) => {
-    api
-      .query([
-        Prismic.Predicates.any('document.type', [
-          'preloader',
-          'index_page',
-          'word_page'
-        ])
-      ])
-      .then((response) => {
-        const { results } = response
-        const preloader = find(results, { type: 'preloader' })
-        const page = find(results, { type: 'index_page' })
-        const words = filter(results, { type: 'word_page' })
-        console.log(words)
+  const api = await initApi(req)
+  const { results } = await api.query(
+    Prismic.Predicates.any('document.type', [
+      'preloader',
+      'index_page',
+      'word_page'
+    ]),
+    { orderings: '[my.word_page.order]' }
+  )
 
-        res.render('index', {
-          preloader,
-          page,
-          words,
-          meta: { description: 'desc', title: 'yolo' }
-        })
-      })
+  const preloader = find(results, { type: 'preloader' })
+  const page = find(results, { type: 'index_page' })
+  const words = filter(results, { type: 'word_page' })
+
+  res.render('index', {
+    preloader,
+    page,
+    words,
+    meta: { description: 'desc', title: 'yolo' }
   })
 })
 
