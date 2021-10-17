@@ -60,7 +60,7 @@ app.get('/', async (req, res) => {
   const page = find(results, { type: 'index_page' })
   const words = filter(results, { type: 'word_page' })
 
-  res.render('index', {
+  res.render('pages/home', {
     preloader,
     page,
     words,

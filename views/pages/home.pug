@@ -1,0 +1,15 @@
+extends ../layout.pug
+
+block variables 
+  - var template = 'home'
+
+block content
+  .home
+    .home__wrapper
+      .home__content
+        p.home__content__hello=page.data.hello 
+        //- p.test=words
+        include ../partials/words
+        
+        .home__content__blurb !{ PrismicDOM.RichText.asHtml(page.data.blurb) }
+        

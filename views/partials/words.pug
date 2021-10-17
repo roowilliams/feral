@@ -1,9 +1,9 @@
-.content__words
+.home__content__words
   <p>
     | I am 
   each item, index in words
-    span.content__words__word(class=`i_am__word--${item.data.word.replace(/\s+/g, '_')}`) #{item.data.word}
-    img.content__words__image(src=item.data.thumbnail.url)
+    span.home__content__words__word(class=`i_am__word--${item.data.word.replace(/\s+/g, '_')}`) #{item.data.word}
+    img.home__content__words__image(src=item.data.thumbnail.url)
     if index < words.length-1
       |, 
     else
