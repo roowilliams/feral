@@ -1,9 +1,10 @@
 .preloader {
   @extend %cover;
   @extend %center;
+  background: black;
+  z-index: 100;
 }
 
 .preloader__number {
   @extend %text-36;
-  display: none;
 }

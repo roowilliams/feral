@@ -68,6 +68,12 @@ app.get('/', async (req, res) => {
   })
 })
 
+app.get('/test', async (req, res) => {
+  res.render('pages/test', {
+    meta: { description: 'desc', title: 'yolo' }
+  })
+})
+
 app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)
 })
