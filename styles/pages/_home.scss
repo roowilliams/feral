@@ -1,14 +1,14 @@
 .home {
-  @extend %cover;
+  @extend %page;
+
   &__wrapper {
-    @extend %cover;
     display: flex;
     justify-content: center;
   }
 
   &__content {
     margin-top: 10rem;
-    max-width: 83rem;
+    max-width: 125rem;
 
     @include media('<phone') {
       margin: 2rem 4rem;
@@ -16,24 +16,45 @@
 
     &__hello,
     &__blurb {
-      @extend %text-36;
+      @extend %text-22;
       color: $color-snow;
       margin-top: 4rem;
-      max-width: 70rem;
+      max-width: 52rem;
+    }
+
+    &__blurb {
+      color: $color-gray;
     }
 
     &__words {
-      @extend %text-72;
+      @extend %text-96;
       margin-top: 4rem;
-      font-family: $font-nm-bold;
-      max-width: 83rem;
+      font-family: $font-header;
+      text-transform: uppercase;
+      max-width: 100rem;
+      position: relative;
+      line-height: 1.4;
+      z-index: z('content');
+      // white-space: nowrap;
     }
 
-    &__words__image {
+    &__words__word {
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    &__words__image__wrapper {
       position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: z('thumbnail');
+      border-radius: 25px;
+    }
+
+    &__words__word__image {
       opacity: 0;
-      visibility: hidden;
-      display: none;
+      position: absolute;
     }
   }
 }

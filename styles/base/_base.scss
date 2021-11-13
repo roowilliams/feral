@@ -9,6 +9,10 @@ html {
   // and will scale responsively.
   font-size: calc(100vw / 1920 * 10);
 
+  @extend %cover;
+  position: fixed;
+  overflow: hidden;
+
   @include media('<phone') {
     font-size: calc(100vw / 750 * 10);
   }
@@ -21,6 +25,7 @@ html {
 body {
   font-family: $font-nm-regular;
   @extend %cover;
+  position: fixed;
   background-color: $color-black;
   color: $color-white;
 }

@@ -11,3 +11,13 @@
   align-items: center;
   justify-content: center;
 }
+
+%page {
+  @extend %cover;
+  opacity: 0;
+  z-index: z('content');
+}
+
+%page__wrapper {
+  color: inherit;
+}

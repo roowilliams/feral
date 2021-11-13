@@ -1,0 +1,5 @@
+.worlds
+  each item, index in words
+    .worlds__world(style=`background-color: ${item.data.background_color}; color: ${item.data.text_color};`)
+      .worlds__world__blurb !{ PrismicDOM.RichText.asHtml(item.data.blurb) }
+

@@ -1,13 +1,4 @@
-.home__content__words
-  <p>
-    | I am 
-  each item, index in words
-    a.home__content__words__word(
-      class=`i_am__word--${item.data.word.replace(/\s+/g, '_')}`
-      href=`${item.data.word.replace(/\s+/g, '_')}`) #{item.data.word}
-    img.home__content__words__image(data-src=item.data.thumbnail.url)
-    if index < words.length-1
-      |, 
-    else
-      |.
-  </p>
+.home__content__words__images
+  each item in words
+    .home__content__words__image__wrapper(id=`image--${item.data.word.replace(/\s+/g, '_').toLowerCase()}`)
+      img.home__content__words__word__image(data-src=item.data.thumbnail.url)

@@ -15,43 +15,41 @@ export default class Preloader extends Component {
     this.length = 0
 
     this.createLoader()
-
-    console.log(this.element, this.elements)
   }
 
   createLoader() {
     each(this.elements.images, (element) => {
-      const image = new Image()
-
-      image.onload = (_) => this.onAssetLoaded(image)
-      image.src = element.getAttribute('data-src')
+      element.onload = (_) => this.onAssetLoaded(element)
+      element.src = element.getAttribute('data-src')
     })
   }
 
   onAssetLoaded(image) {
-    this.length++
-    const percent = this.length / this.elements.images.length
+    if (this.elements.number) {
+      this.length++
+      const percent = this.length / this.elements.images.length
 
-    this.elements.number.textContent = `${Math.round(percent * 100)}%`
+      this.elements.number.textContent = `${Math.round(percent * 100)}%`
 
-    if (percent === 1) {
-      this.onLoaded()
+      if (percent === 1) {
+        this.onLoaded()
+      }
     }
   }
 
   onLoaded() {
-    this.emit('complete')
-
-    return new Promise((resolve) => {
-      this.animateOut = gsap.timeline()
-      this.animateOut.to(this.element, {
+    this.animateOut = gsap.timeline()
+    this.animateOut
+      .to(this.element, {
         autoAlpha: 0,
-        onComplete: this.emit('complete')
+        delay: 0.8
       })
-    })
+      .call(() => {
+        this.emit('complete')
+      })
   }
 
   destroy() {
-    this.element.parentNode.removeChild(this.element)
+    this?.element.parentNode.removeChild(this.element)
   }
 }

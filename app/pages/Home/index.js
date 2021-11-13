@@ -1,4 +1,4 @@
-import Page from '../../classes/Page'
+import Page from '~/app/classes/Page'
 
 export default class Home extends Page {
   constructor() {
@@ -6,8 +6,9 @@ export default class Home extends Page {
       id: 'home',
       element: '.home',
       elements: {
+        wrapper: '.home__wrapper',
         words: '.home__content__words',
-        blurb: '.home__content__blurb'
+        images: document.querySelectorAll('.home__content__words__word__image')
       }
     })
 

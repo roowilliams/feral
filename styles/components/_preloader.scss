@@ -2,7 +2,7 @@
   @extend %cover;
   @extend %center;
   background: black;
-  z-index: 100;
+  z-index: z('preloader');
 }
 
 .preloader__number {
