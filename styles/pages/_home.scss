@@ -33,14 +33,21 @@
       text-transform: uppercase;
       max-width: 100rem;
       position: relative;
-      line-height: 1.4;
+      line-height: 1.6;
       z-index: z('content');
+      color: transparent;
+
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: rgb(140, 140, 140);
       // white-space: nowrap;
     }
 
     &__words__word {
       cursor: pointer;
       display: inline-block;
+      &:hover {
+        color: white;
+      }
     }
 
     &__words__image__wrapper {
@@ -49,12 +56,13 @@
       left: 0;
       overflow: hidden;
       z-index: z('thumbnail');
-      border-radius: 25px;
+      border-radius: 15px;
     }
 
     &__words__word__image {
       opacity: 0;
       position: absolute;
+      filter: grayscale(1);
     }
   }
 }

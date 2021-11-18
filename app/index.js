@@ -1,6 +1,7 @@
 import './utils/polyfills.js'
-import Preloader from './components/Preloader.js'
-import Thumbnails from './components/Thumbnails.js'
+import Preloader from './components/Preloader'
+import Thumbnails from './components/Thumbnails'
+import Worlds from './components/World'
 
 import Home from './pages/Home'
 import Test from './pages/Test'
@@ -12,6 +13,7 @@ class App {
     this.createContent()
     this.createPages()
     this.createThumbnails()
+    this.createWorlds()
 
     this.addLinkListeners()
     this.addEventListeners()
@@ -25,11 +27,16 @@ class App {
 
   createThumbnails() {
     this.thumbnails = new Thumbnails()
+    this.thumbnails.on('show', (worldId) => this.onShowWorld(worldId))
   }
 
   createContent() {
     this.content = document.querySelector('.content')
     this.template = this.content.getAttribute('data-template')
+  }
+
+  createWorlds() {
+    this.worlds = new Worlds()
   }
 
   createPages() {
@@ -46,6 +53,11 @@ class App {
     this.preloader.destroy()
     this.onResize()
     this.page.show()
+  }
+
+  onShowWorld(worldId) {
+    console.log('show', worldId)
+    this.worlds.show(worldId)
   }
   // Events
   async onNavigate(url) {

@@ -1,5 +1,4 @@
 import Component from '../classes/Component'
-import each from 'lodash/each'
 import gsap from 'gsap'
 import mousePosition from 'mouse-position'
 
@@ -13,6 +12,7 @@ export default class Thumbnails extends Component {
     })
 
     this.mouse = mousePosition()
+    this.timeout = 1000
 
     this.createThumbnails()
   }
@@ -29,10 +29,7 @@ export default class Thumbnails extends Component {
         return `<span class="home__content__words__word" id="word--${w.replace(
           /\s+/g,
           '_'
-        )}" data-for="image--${w.replace(
-          /\s+/g,
-          '_'
-        )}">${w}</span>`.toLowerCase()
+        )}" data-for="${w.replace(/\s+/g, '_')}">${w}</span>`.toLowerCase()
       })
     })
 
@@ -47,52 +44,65 @@ export default class Thumbnails extends Component {
     )
 
     this.elements.words.forEach((word) => {
-      const imageId = word.getAttribute('data-for')
+      const worldId = word.getAttribute('data-for')
+      const imageId = `image--${worldId}`
       const imageDiv = document.getElementById(imageId)
-      const tl = gsap.timeline()
+      let hovered = false
+      let interval = null
 
       word.addEventListener('mouseover', (e) => {
-        tl.set(imageDiv, {
-          x: this.mouse[0],
-          y: this.mouse[1],
-
-          height: 226,
-          width: 400,
-          scale: 0.1
-        })
-          .set(imageDiv.firstChild, {
-            autoAlpha: 1
-          })
-          .to(imageDiv, {
-            x: this.mouse[0] + window.innerWidth / 8,
-            ease: 'expo.out',
-            duration: 0.2
-          })
-          .to(imageDiv, {
-            autoAlpha: 1,
-            scale: 1,
-            duration: 0.2,
-            ease: 'expo.out'
-          })
+        this.animateIn(imageDiv)
+        hovered = true
+        interval = setTimeout(() => {
+          hovered && this.emit('show', worldId)
+        }, this.timeout)
       })
 
       word.addEventListener('mouseout', (e) => {
-        tl.to(imageDiv, {
-          x: this.mouse[0],
-          y: this.mouse[1],
-          ease: 'expo.out',
-          duration: 0.2
-        }).to(imageDiv, {
-          scale: 0,
-          ease: 'expo.out',
-          duration: 0.2
-        })
+        hovered = false
+        clearTimeout(interval)
+        this.animateOut(imageDiv)
       })
-      // word.onmouseover((event) => console.log(event))
     })
   }
 
-  animateIn() {}
+  animateIn(el) {
+    let tl = gsap.timeline()
+    tl.set(el, {
+      x: this.mouse[0],
+      y: this.mouse[1],
 
-  animateOut() {}
+      height: 226,
+      width: 400,
+      scale: 0.1
+    })
+      .set(el.firstChild, {
+        autoAlpha: 1
+      })
+      .to(el, {
+        x: this.mouse[0] + window.innerWidth / 8,
+        ease: 'expo.out',
+        duration: 0.2
+      })
+      .to(el, {
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.2,
+        ease: 'expo.out'
+      })
+  }
+
+  animateOut(el) {
+    let tl = gsap.timeline()
+    tl.to(el, {
+      x: this.mouse[0],
+      y: this.mouse[1],
+      ease: 'expo.out',
+      duration: 0.2
+    }).to(el, {
+      scale: 0,
+      ease: 'expo.out',
+      duration: 0.2
+    })
+  }
 }
