@@ -9,6 +9,13 @@
   // opacity: 0;
 }
 
+.world__close__control {
+  position: absolute;
+  display: block;
+  left: 3rem;
+  top: 3rem;
+}
+
 .world__blurb {
   @extend %text-22;
 }

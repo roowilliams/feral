@@ -6,7 +6,8 @@
     "backend:build": "node app.js",
     "backend:dev": "nodemon app.js",
     "frontend:build": "parcel build app/index.js",
-    "frontend:dev": "parcel styles/main.scss assets/* app/index.js --dist-dir ./public"
+    "frontend:dev": "parcel styles/main.scss assets/* app/index.js --dist-dir ./public",
+    "dev": "concurrently \"npm:frontend:dev\" \"npm:backend:dev\""
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   },
   "homepage": "https://github.com/roowilliams/feral#readme",
   "dependencies": {
+    "@parcel/transformer-sass": "^2.0.1",
     "@prismicio/client": "^5.1.0",
     "express": "^4.17.1",
     "gsap": "^3.8.0",
@@ -28,12 +30,12 @@
     "mouse-position": "^2.1.0",
     "nodemon": "^2.0.13",
     "normalize-wheel": "^1.0.1",
-    "parcel": "^2.0.0",
+    "parcel": "^2.0.1",
     "prefix": "^1.0.0",
     "prismic-dom": "^2.2.6",
     "pug": "^3.0.2"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.0.0"
+    "concurrently": "^6.4.0"
   }
 }

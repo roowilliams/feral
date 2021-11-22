@@ -2,6 +2,7 @@
   each item, index in words
     .worlds__world(id=`world--${item.data.word.replace(/\s+/g, '_').toLowerCase()}` style=`background-color: ${item.data.background_color}; color: ${item.data.text_color};`)
       .world__blurb !{ PrismicDOM.RichText.asHtml(item.data.blurb) }
+      a.world__close__control Close
 
       .world__features
         each feature in item.data.features

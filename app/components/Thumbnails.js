@@ -19,7 +19,6 @@ export default class Thumbnails extends Component {
 
   createThumbnails() {
     let content = this.element.innerHTML
-    console.log(words)
     // words comes from the pug template
     words.forEach((word) => {
       var re = new RegExp(word.data.word, 'g')

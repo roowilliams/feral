@@ -10,6 +10,7 @@ export default class World extends Component {
   }
   createWorlds() {
     // this.elements.worlds = document.querySelectorAll()
+    this.addEventListeners()
   }
 
   show(worldId) {
@@ -19,11 +20,35 @@ export default class World extends Component {
     tl.to(world, {
       bottom: 0,
       ease: 'expo.out',
-      duration: 0.2
+      duration: 0.5
     })
 
-    console.log(world)
+    world.classList.add('active')
   }
 
-  animateIn(worldId) {}
+  hide() {
+    let world = document.querySelector('.worlds__world.active')
+
+    let tl = gsap.timeline()
+
+    tl.to(world, {
+      bottom: '-100vh',
+      ease: 'expo.out',
+      duration: 0.5
+    })
+
+    world.classList.remove('active')
+  }
+
+  addEventListeners() {
+    this.elements.closeControls = document.querySelectorAll(
+      '.world__close__control'
+    )
+
+    this.elements.closeControls.forEach((control) => {
+      control.addEventListener('mouseover', (e) => {
+        this.hide()
+      })
+    })
+  }
 }
