@@ -1,9 +1,8 @@
 import './utils/polyfills.js'
 import Preloader from './components/Preloader'
-import Thumbnails from './components/Thumbnails'
-import Worlds from './components/World'
 
 import Home from './pages/Home'
+import World from './pages/World'
 import Test from './pages/Test'
 import each from 'lodash/each'
 
@@ -12,9 +11,6 @@ class App {
     this.createPreloader()
     this.createContent()
     this.createPages()
-    this.createThumbnails()
-    this.createWorlds()
-
     this.addLinkListeners()
     this.addEventListeners()
     this.update()
@@ -25,23 +21,20 @@ class App {
     this.preloader.once('complete', () => this.onPreloaded())
   }
 
-  createThumbnails() {
-    this.thumbnails = new Thumbnails()
-    this.thumbnails.on('show', (worldId) => this.onShowWorld(worldId))
-  }
-
   createContent() {
     this.content = document.querySelector('.content')
     this.template = this.content.getAttribute('data-template')
   }
 
-  createWorlds() {
-    this.worlds = new Worlds()
-  }
+  // createWorlds() {
+  //   this.worlds = new Worlds()
+  //   this.preloader.on('show', () => this.onShow())
+  // }
 
   createPages() {
     this.pages = {
       home: new Home(),
+      world: new World(),
       test: new Test()
     }
 
@@ -59,8 +52,17 @@ class App {
     console.log('show', worldId)
     this.worlds.show(worldId)
   }
+
   // Events
-  async onNavigate(url) {
+
+  onPopState() {
+    this.onNavigate({
+      url: window.location.pathname,
+      push: false
+    })
+  }
+
+  async onNavigate({ url, push = true }) {
     await this.page.hide()
 
     const request = await window.fetch(url)
@@ -69,6 +71,10 @@ class App {
       const html = await request.text()
       const div = document.createElement('div')
       div.innerHTML = html
+      console.log(url, push)
+      if (push) {
+        window.history.pushState({}, '', url)
+      }
 
       const divContent = div.querySelector('.content')
       this.template = divContent.getAttribute('data-template')
@@ -100,19 +106,21 @@ class App {
 
   // Listeners
   addLinkListeners() {
+    console.log('addLinkListeners')
     const links = document.querySelectorAll('a')
 
     each(links, (link) => {
       link.onclick = (event) => {
         event.preventDefault()
         const { href } = link
-        this.onNavigate(href)
+        this.onNavigate({ url: href })
       }
     })
   }
 
   addEventListeners() {
     window.addEventListener('resize', () => this.onResize())
+    window.addEventListener('popstate', () => onPopState())
   }
 }
 

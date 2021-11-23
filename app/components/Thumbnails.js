@@ -25,10 +25,13 @@ export default class Thumbnails extends Component {
       let w = word.data.word
 
       content = content.replace(re, () => {
-        return `<span class="home__content__words__word" id="word--${w.replace(
+        return `<a class="home__content__words__word" id="word--${w.replace(
           /\s+/g,
           '_'
-        )}" data-for="${w.replace(/\s+/g, '_')}">${w}</span>`.toLowerCase()
+        )}" data-for="${w.replace(/\s+/g, '_')}" href="/world/${w.replace(
+          /\s+/g,
+          '_'
+        )}">${w}</a>`.toLowerCase()
       })
     })
 
@@ -46,21 +49,21 @@ export default class Thumbnails extends Component {
       const worldId = word.getAttribute('data-for')
       const imageId = `image--${worldId}`
       const imageDiv = document.getElementById(imageId)
-      let hovered = false
-      let interval = null
+      // let hovered = false
+      // let interval = null
 
       word.addEventListener('mouseover', (e) => {
         this.animateIn(imageDiv)
-        hovered = true
-        interval = setTimeout(() => {
-          hovered && this.emit('show', worldId)
-        }, this.timeout)
+        // hovered = true
+        // interval = setTimeout(() => {
+        //   hovered && window.location
+        // }, this.timeout)
       })
 
       word.addEventListener('mouseout', (e) => {
-        hovered = false
-        clearTimeout(interval)
         this.animateOut(imageDiv)
+        // hovered = false
+        // clearTimeout(interval)
       })
     })
   }

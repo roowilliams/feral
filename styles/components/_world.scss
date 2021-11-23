@@ -1,53 +1,21 @@
-.worlds__world {
-  position: absolute;
-  height: 100vh;
-  bottom: -100vh;
-  left: 0;
-  right: 0;
-  padding: 4rem;
-  z-index: z('world');
-  // opacity: 0;
-}
+// .worlds__world {
+//   position: absolute;
+//   height: 100vh;
+//   bottom: -100vh;
+//   left: 0;
+//   right: 0;
+//   padding: 4rem;
+//   z-index: z('world');
+//   // opacity: 0;
+// }
 
-.world__close__control {
-  position: absolute;
-  display: block;
-  left: 3rem;
-  top: 3rem;
-}
+// .world__close__control {
+//   position: absolute;
+//   display: block;
+//   left: 3rem;
+//   top: 3rem;
+// }
 
-.world__blurb {
-  @extend %text-22;
-}
-
-.world__features {
-  display: flex;
-  flex-direction: column;
-}
-
-.features__feature {
-  display: flex;
-  margin: 50px 0;
-}
-
-.feature__details {
-  display: flex;
-  flex-direction: column;
-  margin: 0 25px;
-}
-
-.feature__image {
-  border-radius: 15px;
-  filter: grayscale(1);
-  mix-blend-mode: multiply;
-}
-
-.feature__details__image:last-child {
-  margin: 0;
-}
-.feature__details__image {
-  border-radius: 15px;
-  filter: grayscale(1);
-  mix-blend-mode: multiply;
-  margin: 0 0 25px;
-}
+// .world__blurb {
+//   @extend %text-22;
+// }

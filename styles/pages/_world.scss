@@ -1,0 +1,54 @@
+.world {
+  @extend %page;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__content {
+  }
+}
+
+.world__close__control {
+  position: absolute;
+  display: block;
+  left: 3rem;
+  top: 3rem;
+}
+
+.world__blurb {
+  @extend %text-22;
+}
+
+.world__features {
+  display: flex;
+  flex-direction: column;
+}
+
+.features__feature {
+  display: flex;
+  margin: 50px 0;
+}
+
+.feature__details {
+  display: flex;
+  flex-direction: column;
+  margin: 0 25px;
+}
+
+.feature__image {
+  border-radius: 15px;
+  filter: grayscale(1);
+  mix-blend-mode: multiply;
+}
+
+.feature__details__image:last-child {
+  margin: 0;
+}
+.feature__details__image {
+  border-radius: 15px;
+  filter: grayscale(1);
+  mix-blend-mode: multiply;
+  margin: 0 0 25px;
+}

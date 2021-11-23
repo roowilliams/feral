@@ -59,8 +59,6 @@ app.get('/', async (req, res) => {
   const preloader = find(results, { type: 'preloader' })
   const page = find(results, { type: 'index_page' })
   const words = filter(results, { type: 'word_page' })
-  console.table(words[0].data.features)
-
   res.render('pages/home', {
     preloader,
     page,
@@ -72,6 +70,22 @@ app.get('/', async (req, res) => {
 app.get('/test', async (req, res) => {
   res.render('pages/test', {
     meta: { description: 'desc', title: 'yolo' }
+  })
+})
+
+app.get('/world/:word', async (req, res) => {
+  const { word } = req.params
+  const api = await initApi(req)
+  const { results } = await api.query(
+    Prismic.Predicates.at('my.word_page.slug', word)
+  )
+
+  const page = results[0]
+  console.log(page)
+
+  res.render('pages/world', {
+    meta: { description: 'desc', title: 'yolo' },
+    page
   })
 })
 
