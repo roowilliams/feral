@@ -1,12 +1,15 @@
 import each from 'lodash/each'
 import gsap from 'gsap'
 import prefix from 'prefix'
+import map from 'lodash/map'
+
 import NormalizeWheel from 'normalize-wheel'
+import AsyncLoad from '~/app/classes/AsyncLoad'
 
 export default class Page {
   constructor({ element, elements, id }) {
     this.selector = element
-    this.selectorChildren = elements
+    this.selectorChildren = { ...elements, preloaders: '[data-src]' }
 
     this.id = id
 
@@ -14,6 +17,8 @@ export default class Page {
   }
 
   create() {
+    console.log('page create')
+    if (typeof postLoad === 'function') postLoad()
     this.element = document.querySelector(this.selector)
     this.elements = {}
 
@@ -24,21 +29,38 @@ export default class Page {
       limit: 0
     }
 
-    each(this.selectorChildren, (item, key) => {
-      if (
-        item instanceof window.HTMLElement ||
-        item instanceof window.NodeList
-      ) {
-        this.elements[key] = item
-      } else {
-        this.elements[key] = document.querySelectorAll(item)
+    if (this.selector instanceof window.HTMLElement) {
+      this.element = this.selector
+    } else {
+      this.element = document.querySelector(this.selector)
+    }
+    this.elements = {}
 
-        if (!this.elements[key].length) {
+    each(this.selectorChildren, (entry, key) => {
+      if (
+        entry instanceof window.HTMLElement ||
+        entry instanceof window.NodeList ||
+        Array.isArray(entry)
+      ) {
+        this.elements[key] = entry
+      } else {
+        this.elements[key] = document.querySelectorAll(entry)
+
+        if (this.elements[key].length === 0) {
           this.elements[key] = null
         } else if (this.elements[key].length === 1) {
-          this.elements[key] = document.querySelector(item)
+          this.elements[key] = document.querySelector(entry)
         }
       }
+    })
+
+    this.createPreloader()
+  }
+
+  createPreloader() {
+    console.log('create preloader')
+    this.preloaders = map(this.elements.preloaders, (element) => {
+      return new AsyncLoad({ element })
     })
   }
 

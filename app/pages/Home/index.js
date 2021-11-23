@@ -1,4 +1,3 @@
-import { create } from 'lodash'
 import Page from '~/app/classes/Page'
 import Thumbnails from '~/app/components/Thumbnails'
 
@@ -17,11 +16,6 @@ export default class Home extends Page {
 
   create() {
     super.create()
-    this.createThumbnails()
-  }
-
-  createThumbnails() {
     this.thumbnails = new Thumbnails()
-    this.thumbnails.on('show', (worldId) => this.onShowWorld(worldId))
   }
 }

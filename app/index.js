@@ -42,15 +42,10 @@ class App {
     this.page.create()
   }
 
-  onPreloaded() {
+  async onPreloaded() {
     this.preloader.destroy()
+    await this.page.show()
     this.onResize()
-    this.page.show()
-  }
-
-  onShowWorld(worldId) {
-    console.log('show', worldId)
-    this.worlds.show(worldId)
   }
 
   // Events
@@ -71,7 +66,7 @@ class App {
       const html = await request.text()
       const div = document.createElement('div')
       div.innerHTML = html
-      console.log(url, push)
+
       if (push) {
         window.history.pushState({}, '', url)
       }
@@ -84,9 +79,9 @@ class App {
       this.page = this.pages[this.template]
 
       this.page.create()
-      this.onResize()
-      this.page.show()
+      await this.page.show()
 
+      this.onResize()
       this.addLinkListeners()
     } else {
       console.log('Error', request.status)
@@ -106,7 +101,6 @@ class App {
 
   // Listeners
   addLinkListeners() {
-    console.log('addLinkListeners')
     const links = document.querySelectorAll('a')
 
     each(links, (link) => {

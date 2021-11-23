@@ -19,6 +19,7 @@ export default class Thumbnails extends Component {
 
   createThumbnails() {
     let content = this.element.innerHTML
+
     // words comes from the pug template
     words.forEach((word) => {
       var re = new RegExp(word.data.word, 'g')
@@ -82,7 +83,8 @@ export default class Thumbnails extends Component {
         autoAlpha: 1
       })
       .to(el, {
-        x: this.mouse[0] + window.innerWidth / 8,
+        x: this.mouse[0] + window.innerWidth / 12,
+        y: this.mouse[1],
         ease: 'expo.out',
         duration: 0.2
       })

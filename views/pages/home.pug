@@ -5,7 +5,11 @@ block variables
 
 block content
   script.
-    var words = !{JSON.stringify(words)}
+    var words
+    function postLoad() {
+      words = !{JSON.stringify(words)}
+    }
+    
     
   .home
     .home__wrapper

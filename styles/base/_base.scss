@@ -29,3 +29,14 @@ body {
   background-color: $color-black;
   color: $color-white;
 }
+
+a {
+  text-decoration: none;
+  color: white;
+  &:hover {
+    text-decoration: none;
+  }
+  &:visited {
+    text-decoration: none;
+  }
+}

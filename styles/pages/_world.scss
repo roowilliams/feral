@@ -7,10 +7,20 @@
   }
 
   &__content {
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+  }
+  &__title {
+    @extend %text-96;
+    font-family: $font-header;
+    text-transform: uppercase;
+    text-align: center;
   }
 }
 
-.world__close__control {
+.world__back__button {
+  @extend %text-22;
   position: absolute;
   display: block;
   left: 3rem;
@@ -19,11 +29,15 @@
 
 .world__blurb {
   @extend %text-22;
+  margin-right: 3rem;
+  max-width: 30rem;
+  position: relative;
+  top: 12%;
 }
 
 .world__features {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .features__feature {
@@ -34,21 +48,20 @@
 .feature__details {
   display: flex;
   flex-direction: column;
-  margin: 0 25px;
+  margin: 0 0 0 4rem;
 }
 
 .feature__image {
   border-radius: 15px;
   filter: grayscale(1);
-  mix-blend-mode: multiply;
 }
 
 .feature__details__image:last-child {
   margin: 0;
 }
+
 .feature__details__image {
   border-radius: 15px;
   filter: grayscale(1);
-  mix-blend-mode: multiply;
-  margin: 0 0 25px;
+  margin: 0 0 6rem;
 }

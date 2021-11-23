@@ -5,19 +5,23 @@ block variables
 
 
 block content
-  .world(id=`world--${page.data.word.replace(/\s+/g, '_').toLowerCase()}` style=`background-color: ${page.data.background_color}; color: ${page.data.text_color};`)
+  .world(id=`world--${page.data.word.replace(/\s+/g, '_').toLowerCase()}` style=`background-color: ${page.data.background_color};`)
     .world__wrapper
-      .world__content
-        a.world__back(href='/') Close
+      a.world__back__button(href='/') Close
+      .world__content(style=`background-color: ${page.data.background_color}; color: ${page.data.text_color};`)
+        if page.data.title
+          .world__header 
+            h2.world__title= page.data.title
+
         
-        .world__blurb !{ PrismicDOM.RichText.asHtml(page.data.blurb) }
 
         .world__features
+          .world__blurb !{ PrismicDOM.RichText.asHtml(page.data.blurb) }
           each feature in page.data.features
             .features__feature
-                img.feature__image(data-src=feature.main_image.url)
-                if feature.detail_image_1
-                .feature__details
-                  img.feature__details__image(data-src=feature.detail_image_1.url)
-                  if feature.detail_image_2.hasOwnProperty('url')
-                    img.feature__details__image(data-src=feature.detail_image_2.url)
+                img.feature__image(data-src=feature.main_image.url style=`mix-blend-mode: ${feature.image_blend_mode};`)
+                if feature.detail_image_1.url
+                  .feature__details
+                    img.feature__details__image(data-src=feature.detail_image_1.url style=`mix-blend-mode: ${feature.image_blend_mode};`)
+                    if feature.detail_image_2.url
+                      img.feature__details__image(data-src=feature.detail_image_2.url style=`mix-blend-mode: ${feature.image_blend_mode};`)

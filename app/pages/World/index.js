@@ -9,7 +9,9 @@ export default class World extends Page {
         wrapper: '.world__wrapper'
       }
     })
+  }
 
-    this.create()
+  create() {
+    super.create()
   }
 }

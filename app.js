@@ -45,6 +45,32 @@ app.use(morgan('tiny'))
 
 app.set('view engine', 'pug')
 
+// const handleRequest = async (api) => {
+//   // Preload all images & content
+//   const home = await api.query(
+//     Prismic.Predicates.any('document.type', [
+//       'preloader',
+//       'index_page',
+//       'word_page'
+//     ]),
+//     { orderings: '[my.word_page.order]' }
+//   )
+
+//   const preloader = await api.getSingle('preloader')
+
+//   let assets = []
+
+//   home.data.gallery.forEach(item =>{
+//     assets.push(item.image.url);
+//   })
+
+//   return {
+//     assets,
+//     home,
+//     preloader
+//   }
+// }
+
 app.get('/', async (req, res) => {
   const api = await initApi(req)
   const { results } = await api.query(
@@ -81,7 +107,7 @@ app.get('/world/:word', async (req, res) => {
   )
 
   const page = results[0]
-  console.log(page)
+  console.table(page.data.features)
 
   res.render('pages/world', {
     meta: { description: 'desc', title: 'yolo' },
