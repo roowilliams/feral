@@ -9,19 +9,25 @@ block content
     .world__wrapper
       a.world__back__button(href='/' style=`color: ${page.data.text_color}; border-color: ${page.data.text_color};`) Home
       .world__content(style=`background-color: ${page.data.background_color}; color: ${page.data.text_color};`)
+
         if page.data.title
           .world__header 
+            .world__word= page.data.word
             h2.world__title= page.data.title
+          .world__intro 
             .world__blurb !{ PrismicDOM.RichText.asHtml(page.data.blurb) }
-
-        
-
+            if page.data.thumbnail.full.url
+              .word_image_wrapper
+                img.world__image(data-src=page.data.thumbnail.full.url style=`mix-blend-mode: ${page.data.images_blend_mode};`)
+            .intro__filler
+          
         .world__features
           each feature in page.data.features
             .features__feature
               .feature__blurb !{ PrismicDOM.RichText.asHtml(feature.feature_blurb) }
               if feature.main_image.url
-                img.feature__image(data-src=feature.main_image.url style=`mix-blend-mode: ${feature.image_blend_mode};`)
+                .feature_image_wrapper
+                  img.feature__image(data-src=feature.main_image.url style=`mix-blend-mode: ${feature.image_blend_mode};`)
               if feature.detail_image_1.url
                 .feature_details
                   img.feature_details__image(data-src=feature.detail_image_1.url style=`mix-blend-mode: ${feature.image_blend_mode};`)

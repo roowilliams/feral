@@ -1,20 +1,8 @@
 .world {
   @extend %page;
 
-  &__wrapper {
-    display: flex;
-    justify-content: center;
-  }
-
-  &__content {
-    padding: 3rem;
-  }
-
-  &__title {
-    @extend %text-96;
-    font-family: $font-header;
-    text-transform: uppercase;
-    text-align: center;
+  img {
+    max-width: 100%;
   }
 }
 
@@ -24,52 +12,82 @@
   display: block;
   left: 3rem;
   top: 3rem;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem;
   border-radius: 1rem;
   border: 1px solid white;
 }
 
-.world__blurb {
+.world__wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10rem;
+}
+
+.world__header__wrapper {
+  position: relative;
+}
+
+.world__header {
+  position: absolute;
+  top: 10rem;
+}
+
+.world__content {
+  max-width: calc(100vw - 200px);
+}
+
+.world__title {
+  @extend %text-126;
+  font-family: $font-header;
+  text-align: left;
+  margin: 0 0 6rem;
+  max-width: 60rem;
+  z-index: z('world');
+}
+
+.intro__filler {
+  width: 33rem;
+}
+
+.world__word {
   @extend %text-22;
-  max-width: 80rem;
-  margin: 0 auto;
+  font-family: $font-header;
+  position: relative;
+  left: -12rem;
+  bottom: -4rem;
+  text-align: right;
+  max-width: 12rem;
+  text-transform: uppercase;
 }
 
-.world__features {
-  display: flex;
-  flex-direction: column;
-}
-
+.world__intro,
 .features__feature {
-  display: flex;
-  flex-direction: row;
-  margin: 50px 0;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-column-gap: 3rem;
+  margin-bottom: 20rem;
 }
 
-.feature_details {
-  display: flex;
-  flex-direction: column;
-  margin: 0 0 0 4rem;
-}
-
-.feature__image {
-  border-radius: 15px;
-  filter: grayscale(1);
-}
-
-.feature_details__image:last-child {
-  margin: 0;
-}
-
+.feature__image,
+.world__image,
 .feature_details__image {
   border-radius: 15px;
   filter: grayscale(1);
-  margin: 0 0 6rem;
+  z-index: z('thumbnail');
 }
+
+.world__blurb,
 .feature__blurb {
-  @extend %text-22;
-  position: relative;
-  top: 10%;
-  margin-right: 3rem;
-  max-width: 40rem;
+  font-family: $font-nm-bold;
+  @extend %text-18;
+  margin-top: 18rem;
+}
+
+.world__blurb {
+  margin-top: 36rem;
+}
+
+.feature__blurb {
+  @extend %text-18;
+  font-family: $font-nm-regular;
 }

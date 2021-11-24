@@ -26,13 +26,14 @@ export default class Thumbnails extends Component {
       let w = word.data.word
 
       content = content.replace(re, () => {
-        return `<a class="home__content__words__word" id="word--${w.replace(
-          /\s+/g,
-          '_'
-        )}" data-for="${w.replace(/\s+/g, '_')}" href="/world/${w.replace(
-          /\s+/g,
-          '_'
-        )}">${w}</a>`.toLowerCase()
+        return `<a class="home__content__words__word" id="word--${w
+          .replace(/\s+/g, '_')
+          .toLowerCase()}" data-for="${w
+          .replace(/\s+/g, '_')
+          .toLowerCase()}" href="/world/${w
+          .replace(/\s+/g, '_')
+          .toLowerCase()
+          .toLowerCase()}">${w}</a>`
       })
     })
 
@@ -84,7 +85,7 @@ export default class Thumbnails extends Component {
         autoAlpha: 1
       })
       .to(el, {
-        x: this.mouse[0] + window.innerWidth / 12,
+        x: this.mouse[0] + window.innerWidth / 18,
         y: this.mouse[1] - 113,
         ease: 'expo.in',
         scale: 0.4,
@@ -102,7 +103,7 @@ export default class Thumbnails extends Component {
     this.tl
       .to(el, {
         x: this.mouse[0],
-        y: this.mouse[1],
+        y: this.mouse[1] - 113,
         ease: 'expo.in',
         duration: 0.2
       })

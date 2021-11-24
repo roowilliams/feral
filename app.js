@@ -85,6 +85,7 @@ app.get('/', async (req, res) => {
   const preloader = find(results, { type: 'preloader' })
   const page = find(results, { type: 'index_page' })
   const words = filter(results, { type: 'word_page' })
+  console.log(words[0].data)
   res.render('pages/home', {
     preloader,
     page,

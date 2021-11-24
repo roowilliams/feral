@@ -26,20 +26,18 @@
       color: $color-gray;
     }
 
-    &__words {
-      @extend %text-96;
+    &__words,
+    &__words a {
+      @extend %text-140;
       margin-top: 4rem;
       font-family: $font-header;
-      text-transform: uppercase;
-      max-width: 100rem;
+      max-width: 120rem;
       position: relative;
-      line-height: 1.6;
       z-index: z('content');
       color: transparent;
 
       -webkit-text-stroke-width: 1px;
-      -webkit-text-stroke-color: rgb(140, 140, 140);
-      // white-space: nowrap;
+      -webkit-text-stroke-color: rgb(60, 60, 60);
     }
 
     &__words__word {
