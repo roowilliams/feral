@@ -10,5 +10,8 @@ html(lang="en")
 
     .content#content(data-template=template)
       block content
-    
+
+    script.
+      window.WORDS = !{JSON.stringify(words) || JSON.stringify([])}
+      
     script(src="app/index.js")

@@ -18,7 +18,7 @@ export default class Page {
 
   create() {
     console.log('page create')
-    if (typeof postLoad === 'function') postLoad()
+
     this.element = document.querySelector(this.selector)
     this.elements = {}
 

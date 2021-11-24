@@ -93,25 +93,22 @@ app.get('/', async (req, res) => {
   })
 })
 
-app.get('/test', async (req, res) => {
-  res.render('pages/test', {
-    meta: { description: 'desc', title: 'yolo' }
-  })
-})
-
 app.get('/world/:word', async (req, res) => {
   const { word } = req.params
   const api = await initApi(req)
+
+  const wordsQuery = await api.query(
+    Prismic.Predicates.any('document.type', ['word_page'])
+  )
+
   const { results } = await api.query(
     Prismic.Predicates.at('my.word_page.slug', word)
   )
 
-  const page = results[0]
-  console.table(page.data.features)
-
   res.render('pages/world', {
     meta: { description: 'desc', title: 'yolo' },
-    page
+    words: wordsQuery.results,
+    page: results[0]
   })
 })
 
