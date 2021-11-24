@@ -70,43 +70,46 @@ export default class Thumbnails extends Component {
   }
 
   animateIn(el) {
-    let tl = gsap.timeline()
-    tl.set(el, {
-      x: this.mouse[0],
-      y: this.mouse[1],
+    this.tl = gsap.timeline()
+    this.tl
+      .set(el, {
+        x: this.mouse[0] - 200,
+        y: this.mouse[1] - 113,
 
-      height: 226,
-      width: 400,
-      scale: 0.1
-    })
+        height: 226,
+        width: 400,
+        scale: 0.01
+      })
       .set(el.firstChild, {
         autoAlpha: 1
       })
       .to(el, {
         x: this.mouse[0] + window.innerWidth / 12,
-        y: this.mouse[1],
-        ease: 'expo.out',
-        duration: 0.2
+        y: this.mouse[1] - 113,
+        ease: 'expo.in',
+        scale: 0.4,
+        duration: 0.4
       })
       .to(el, {
         autoAlpha: 1,
         scale: 1,
-        duration: 0.2,
+        duration: 0.4,
         ease: 'expo.out'
       })
   }
 
   animateOut(el) {
-    let tl = gsap.timeline()
-    tl.to(el, {
-      x: this.mouse[0],
-      y: this.mouse[1],
-      ease: 'expo.out',
-      duration: 0.2
-    }).to(el, {
-      scale: 0,
-      ease: 'expo.out',
-      duration: 0.2
-    })
+    this.tl
+      .to(el, {
+        x: this.mouse[0],
+        y: this.mouse[1],
+        ease: 'expo.in',
+        duration: 0.2
+      })
+      .to(el, {
+        scale: 0,
+        ease: 'expo.out',
+        duration: 0.2
+      })
   }
 }

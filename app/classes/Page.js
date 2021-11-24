@@ -17,8 +17,6 @@ export default class Page {
   }
 
   create() {
-    console.log('page create')
-
     this.element = document.querySelector(this.selector)
     this.elements = {}
 
@@ -58,8 +56,8 @@ export default class Page {
   }
 
   createPreloader() {
-    console.log('create preloader')
     this.preloaders = map(this.elements.preloaders, (element) => {
+      console.log(element)
       return new AsyncLoad({ element })
     })
   }
