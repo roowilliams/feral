@@ -7,7 +7,10 @@ block variables
 block content
   .world(id=`world--${page.data.word.replace(/\s+/g, '_').toLowerCase()}` style=`background-color: ${page.data.background_color};`)
     .world__wrapper
-      a.world__back__button(href='/' style=`color: ${page.data.text_color}; border-color: ${page.data.text_color};`) Home
+      a.world__back__button(href='/' style=`color: ${page.data.text_color}; border-color: ${page.data.text_color};`)
+        include ../partials/left-arrow
+
+
       .world__content(style=`background-color: ${page.data.background_color}; color: ${page.data.text_color};`)
 
         if page.data.title

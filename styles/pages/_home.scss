@@ -38,6 +38,13 @@
 
       -webkit-text-stroke-width: 1px;
       -webkit-text-stroke-color: rgb(60, 60, 60);
+
+      @include media('<phone') {
+        font-size: 8.6rem;
+        line-height: 0.8;
+        max-width: 140rem;
+        white-space: nowrap;
+      }
     }
 
     &__words__word {

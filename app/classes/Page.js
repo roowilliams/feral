@@ -14,6 +14,31 @@ export default class Page {
     this.id = id
 
     this.transformPrefix = prefix('transform')
+    this.x = {
+      start: 0,
+      distance: 0,
+      end: 0
+    }
+    this.y = {
+      start: 0,
+      distance: 0,
+      end: 0
+    }
+    this.speed = {
+      current: 0,
+      target: 0,
+      lerp: 0.3
+    }
+
+    this.scroll = {
+      x: 0,
+      y: 0
+    }
+
+    this.scrollCurrent = {
+      x: 0,
+      y: 0
+    }
   }
 
   create() {
@@ -89,6 +114,49 @@ export default class Page {
     this.scroll.target += pixelY
   }
 
+  onTouchDown(event) {
+    this.isDown = true
+
+    this.x.start = event.touches ? event.touches[0].clientX : event.clientX
+    this.y.start = event.touches ? event.touches[0].clientY : event.clientY
+
+    const values = {
+      x: this.x,
+      y: this.y
+    }
+
+    this.speed.target = 1
+
+    this.scrollCurrent.x = this.scroll.x
+    this.scrollCurrent.y = this.scroll.y
+  }
+
+  onTouchMove(event) {
+    if (!this.isDown) return
+
+    const x = event.touches ? event.touches[0].clientX : event.clientX
+    const y = event.touches ? event.touches[0].clientY : event.clientY
+
+    this.x.end = x
+    this.y.end = y
+
+    const values = {
+      x: this.x,
+      y: this.y
+    }
+
+    const xDistance = values.x.start - x.end
+    const yDistance = values.y.start - y.end
+
+    this.x.target = this.scrollCurrent.x - xDistance
+    this.y.target = this.scrollCurrent.y - yDistance
+  }
+
+  onTouchUp(event) {
+    this.isDown = false
+    this.speed.target = 0
+  }
+
   update() {
     if (this.elements.wrapper) {
       this.scroll.target = gsap.utils.clamp(
@@ -112,6 +180,9 @@ export default class Page {
 
   addEventListeners() {
     window.addEventListener('mousewheel', (e) => this.onMouseWheel(e))
+    window.addEventListener('touchstart', this.onTouchDown.bind(this))
+    window.addEventListener('touchmove', this.onTouchMove.bind(this))
+    window.addEventListener('touchend', this.onTouchUp.bind(this))
   }
 
   removeEventListeners() {
