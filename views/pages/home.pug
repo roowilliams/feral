@@ -8,10 +8,11 @@ block content
   .home
     .home__wrapper
       .home__content
-        .home__content__words !{ PrismicDOM.RichText.asHtml(page.data.content) }
+        .content__words !{ PrismicDOM.RichText.asHtml(page.data.content) }
 
-        .home__content__words__images
+        .words__thumbnails
           each item in words
-            .home__content__words__image__wrapper(id=`image--${item.data.word.replace(/\s+/g, '_').toLowerCase()}`)
-              img.home__content__words__word__image(data-src=item.data.thumbnail.url)
+            .words__thumbnails__wrapper(id=`image--${item.data.word.replace(/\s+/g, '_').toLowerCase()}`)
+              img.words__thumbnail(data-src=item.data.thumbnail.url)
                 
+        

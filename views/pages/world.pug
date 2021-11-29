@@ -40,6 +40,8 @@ block content
               if feature.detail_image_1.url
                 .feature_details_wrapper
                   img.feature_details__image(data-src=feature.detail_image_1.url style=`mix-blend-mode: ${feature.image_blend_mode};`)
+                  .details__caption= feature.detail_image_1_caption
                 if feature.detail_image_2.url
                   .feature_details_wrapper
                     img.feature_details__image(data-src=feature.detail_image_2.url style=`mix-blend-mode: ${feature.image_blend_mode};`)
+                    .details__caption= feature.detail_image_2_caption

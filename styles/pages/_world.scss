@@ -184,5 +184,7 @@
 
 .feature_details_wrapper {
   overflow: hidden;
-  border-radius: 15px;
+}
+.details__caption {
+  @extend %text-18;
 }

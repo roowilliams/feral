@@ -28,10 +28,9 @@
   color: $color-gray;
 }
 
-.home__content__words,
-.home__content__words a {
+.content__words,
+.content__words a {
   @extend %text-140;
-  margin-top: 4rem;
   font-family: $font-header;
   max-width: 120rem;
   position: relative;
@@ -43,13 +42,12 @@
 
   @include media('<phone') {
     font-size: 8.6rem;
-    line-height: 0.8;
     max-width: 140rem;
     white-space: nowrap;
   }
 }
 
-.home__content__words__word {
+.words__word {
   cursor: pointer;
   display: inline-block;
   &:hover {
@@ -57,7 +55,7 @@
   }
 }
 
-.home__content__words__image__wrapper {
+.words__thumbnails__wrapper {
   position: absolute;
   top: 0;
   left: 0;
@@ -66,7 +64,7 @@
   border-radius: 15px;
 }
 
-.home__content__words__word__image {
+.words__thumbnail {
   opacity: 0;
   position: absolute;
   filter: grayscale(1);

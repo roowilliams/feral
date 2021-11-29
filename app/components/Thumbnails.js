@@ -5,9 +5,9 @@ import mousePosition from 'mouse-position'
 export default class Thumbnails extends Component {
   constructor() {
     super({
-      element: '.home__content__words',
+      element: '.content__words',
       elements: {
-        words: document.querySelectorAll('.home__content__words__word')
+        words: document.querySelectorAll('.words__word')
       }
     })
 
@@ -26,7 +26,7 @@ export default class Thumbnails extends Component {
       let w = word.data.word
 
       content = content.replace(re, () => {
-        return `<a class="home__content__words__word" id="word--${w
+        return `<a class="words__word" id="word--${w
           .replace(/\s+/g, '_')
           .toLowerCase()}" data-for="${w
           .replace(/\s+/g, '_')
@@ -43,9 +43,7 @@ export default class Thumbnails extends Component {
   }
 
   createAnimations() {
-    this.elements.words = document.querySelectorAll(
-      '.home__content__words__word'
-    )
+    this.elements.words = document.querySelectorAll('.words__word')
 
     this.elements.words.forEach((word) => {
       const worldId = word.getAttribute('data-for')
