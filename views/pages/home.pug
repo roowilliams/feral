@@ -8,11 +8,16 @@ block content
   .home
     .home__wrapper
       .home__content
-        .content__words !{ PrismicDOM.RichText.asHtml(page.data.content) }
+        
+        section.content__words !{ PrismicDOM.RichText.asHtml(page.data.content) }
 
         .words__thumbnails
           each item in words
             .words__thumbnails__wrapper(id=`image--${item.data.word.replace(/\s+/g, '_').toLowerCase()}`)
               img.words__thumbnail(data-src=item.data.thumbnail.url)
                 
-        
+        section.proposition
+          .proposition__copy !{ PrismicDOM.RichText.asHtml(page.data.proposition) } 
+
+        section.blurb
+          .blurb__copy !{ PrismicDOM.RichText.asHtml(page.data.blurb) } 

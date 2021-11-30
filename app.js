@@ -77,7 +77,8 @@ app.get('/', async (req, res) => {
     Prismic.Predicates.any('document.type', [
       'preloader',
       'index_page',
-      'word_page'
+      'word_page',
+      'config'
     ]),
     { orderings: '[my.word_page.order]' }
   )
@@ -85,11 +86,13 @@ app.get('/', async (req, res) => {
   const preloader = find(results, { type: 'preloader' })
   const page = find(results, { type: 'index_page' })
   const words = filter(results, { type: 'word_page' })
-  console.log(words[0].data)
+  const config = filter(results, { type: 'config' })[0].data
+
   res.render('pages/home', {
     preloader,
     page,
     words,
+    config,
     meta: { description: 'desc', title: 'yolo' }
   })
 })
@@ -98,9 +101,12 @@ app.get('/world/:word', async (req, res) => {
   const { word } = req.params
   const api = await initApi(req)
 
-  const wordsQuery = await api.query(
-    Prismic.Predicates.any('document.type', ['word_page'])
+  const query = await api.query(
+    Prismic.Predicates.any('document.type', ['word_page', 'config'])
   )
+
+  const words = filter(query.results, { type: 'word_page' })
+  const config = filter(query.results, { type: 'config' })[0].data
 
   const { results } = await api.query(
     Prismic.Predicates.at('my.word_page.slug', word)
@@ -108,7 +114,8 @@ app.get('/world/:word', async (req, res) => {
 
   res.render('pages/world', {
     meta: { description: 'desc', title: 'yolo' },
-    words: wordsQuery.results,
+    words,
+    config,
     page: results[0]
   })
 })

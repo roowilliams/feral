@@ -69,3 +69,14 @@
   position: absolute;
   filter: grayscale(1);
 }
+
+.proposition,
+.blurb {
+  opacity: 0;
+  @extend %text-36;
+  font-family: $font-nm-bold;
+
+  p {
+    margin: 0 0 1.6rem;
+  }
+}

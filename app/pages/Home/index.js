@@ -1,5 +1,6 @@
 import Page from '~/app/classes/Page'
-import Thumbnails from '~/app/components/Thumbnails'
+import Words from '~/app/components/Words'
+import gsap from 'gsap'
 
 export default class Home extends Page {
   constructor() {
@@ -8,14 +9,28 @@ export default class Home extends Page {
       element: '.home',
       elements: {
         wrapper: '.home__wrapper',
-        words: '.home__content__words',
-        images: document.querySelectorAll('.home__content__words__word__image')
+        proposition: '.proposition',
+        blurb: '.blurb'
       }
     })
   }
 
   create() {
     super.create()
-    this.thumbnails = new Thumbnails()
+    this.words = new Words()
+
+    this.words.once('trigger', () => {
+      this.showProposition()
+    })
+  }
+
+  showProposition() {
+    const { proposition, blurb } = this.elements
+
+    const tl = gsap.timeline()
+
+    tl.to(proposition, {
+      autoAlpha: 1
+    })
   }
 }

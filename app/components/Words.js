@@ -2,73 +2,87 @@ import Component from '../classes/Component'
 import gsap from 'gsap'
 import mousePosition from 'mouse-position'
 
-export default class Thumbnails extends Component {
+export default class Words extends Component {
   constructor() {
     super({
       element: '.content__words',
       elements: {
-        words: document.querySelectorAll('.words__word')
+        words: null,
+        triggerWord: null
       }
     })
 
     this.mouse = mousePosition()
     this.timeout = 1000
-
-    this.createThumbnails()
   }
 
-  createThumbnails() {
+  createTriggers() {
     let content = this.element.innerHTML
+    let triggerWord = CONFIG.trigger_word
 
-    // words comes from the pug template
-    window.WORDS.forEach((word) => {
+    // WORDS and CONFIG come from the pug template
+    WORDS.forEach((word) => {
       var re = new RegExp(word.data.word, 'g')
       let w = word.data.word
 
-      content = content.replace(re, () => {
-        return `<a class="words__word" id="word--${w
-          .replace(/\s+/g, '_')
-          .toLowerCase()}" data-for="${w
-          .replace(/\s+/g, '_')
-          .toLowerCase()}" href="/world/${w
-          .replace(/\s+/g, '_')
-          .toLowerCase()
-          .toLowerCase()}">${w}</a>`
-      })
+      content = content.replace(
+        re,
+        () =>
+          `<a class="words__word" id="word--${w
+            .replace(/\s+/g, '_')
+            .toLowerCase()}" data-for="${w
+            .replace(/\s+/g, '_')
+            .toLowerCase()}" href="/world/${w
+            .replace(/\s+/g, '_')
+            .toLowerCase()
+            .toLowerCase()}">${w}</a>`
+      )
     })
 
+    content = content.replace(
+      triggerWord,
+      () => `<span id="trigger-word">${triggerWord}</span>`
+    )
     this.element.innerHTML = content
 
-    this.createAnimations()
+    this.elements.words = document.querySelectorAll('.words__word')
+    this.elements.triggerWord = document.querySelector('#trigger-word')
   }
 
-  createAnimations() {
-    this.elements.words = document.querySelectorAll('.words__word')
+  async addEventListeners() {
+    await this.createTriggers()
 
-    this.elements.words.forEach((word) => {
+    const { words, triggerWord } = this.elements
+    words.forEach((word) => {
       const worldId = word.getAttribute('data-for')
       const imageId = `image--${worldId}`
       const imageDiv = document.getElementById(imageId)
-      // let hovered = false
-      // let interval = null
 
       word.addEventListener('mouseover', (e) => {
-        this.animateIn(imageDiv)
-        // hovered = true
-        // interval = setTimeout(() => {
-        //   hovered && window.location
-        // }, this.timeout)
+        this.animateThumbsIn(imageDiv)
       })
 
       word.addEventListener('mouseout', (e) => {
-        this.animateOut(imageDiv)
-        // hovered = false
-        // clearTimeout(interval)
+        this.animateThumbsOut(imageDiv)
       })
+    })
+
+    let interval = {}
+    let hovered = false
+    triggerWord.addEventListener('mouseover', (e) => {
+      hovered = true
+      interval = setTimeout(() => {
+        hovered && this.emit('trigger')
+      }, this.timeout)
+    })
+
+    triggerWord.addEventListener('mouseout', (e) => {
+      hovered = false
+      clearTimeout(interval)
     })
   }
 
-  animateIn(el) {
+  animateThumbsIn(el) {
     this.tl = gsap.timeline()
     this.tl
       .set(el, {
@@ -97,7 +111,7 @@ export default class Thumbnails extends Component {
       })
   }
 
-  animateOut(el) {
+  animateThumbsOut(el) {
     this.tl
       .to(el, {
         x: this.mouse[0],

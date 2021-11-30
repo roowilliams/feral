@@ -12,6 +12,7 @@ html(lang="en")
       block content
 
     script.
-      window.WORDS = !{JSON.stringify(words) || JSON.stringify([])}
+      WORDS = !{JSON.stringify(words) || JSON.stringify([])}
+      CONFIG = !{JSON.stringify(config) || JSON.stringify([])}
       
     script(src="app/index.js")
