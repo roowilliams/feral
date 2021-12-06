@@ -8,7 +8,9 @@ export default class Words extends Component {
       element: '.content__words',
       elements: {
         words: null,
-        triggerWord: null
+        triggerWord: null,
+        timerDiv: document.querySelector('.timer-div'),
+        clipPath: null
       }
     })
 
@@ -44,14 +46,13 @@ export default class Words extends Component {
       () => `<span id="trigger-word">${triggerWord}</span>`
     )
     this.element.innerHTML = content
-
-    this.elements.words = document.querySelectorAll('.words__word')
-    this.elements.triggerWord = document.querySelector('#trigger-word')
   }
 
   async addEventListeners() {
-    await this.createTriggers()
+    if (!document.querySelector('#trigger-word')) await this.createTriggers()
 
+    this.elements.words = document.querySelectorAll('.words__word')
+    this.elements.triggerWord = document.querySelector('#trigger-word')
     const { words, triggerWord } = this.elements
     words.forEach((word) => {
       const worldId = word.getAttribute('data-for')
@@ -71,6 +72,7 @@ export default class Words extends Component {
     let hovered = false
     triggerWord.addEventListener('mouseover', (e) => {
       hovered = true
+      this.showTimer(e)
       interval = setTimeout(() => {
         hovered && this.emit('trigger')
       }, this.timeout)
@@ -78,6 +80,7 @@ export default class Words extends Component {
 
     triggerWord.addEventListener('mouseout', (e) => {
       hovered = false
+      this.hideTimer()
       clearTimeout(interval)
     })
   }
@@ -124,5 +127,134 @@ export default class Words extends Component {
         ease: 'expo.out',
         duration: 0.2
       })
+  }
+
+  async showTimer(e) {
+    this.elements.triggerWord.addEventListener('mousemove', (e) =>
+      this.onMouseMove(e)
+    )
+
+    gsap.fromTo(
+      this.elements.timerDiv,
+      {
+        left: e.pageX - gsap.getProperty(this.elements.timerDiv, 'width') / 2,
+        top: e.pageY - gsap.getProperty(this.elements.timerDiv, 'height') / 2,
+        scale: 0.1
+      },
+      { scale: 1, duration: 0.3, ease: 'expo.out' }
+    )
+
+    // radial wipe
+    var RAD = Math.PI / 180
+    var PI_2 = Math.PI / 2
+
+    var arc = {
+      start: 0,
+      end: 0,
+      cx: 50,
+      cy: 50,
+      r: 15
+    }
+
+    this.timerTimeline = gsap
+      .timeline({
+        paused: true,
+        onUpdate: updatePath
+      })
+      .to(arc, {
+        duration: this.timeout / 1000,
+        end: 360
+      })
+      .to(this.elements.timerDiv, { scale: 0, ease: 'expo.out' })
+
+    this.timerTimeline.play()
+
+    let clipPath = document.querySelector('#arcPath')
+    clipPath = document.querySelector('#arcPath')
+
+    function updatePath() {
+      clipPath.setAttribute(
+        'd',
+        getPath(arc.cx, arc.cy, arc.r, arc.start, arc.end)
+      )
+    }
+
+    function getPath(cx, cy, r, a1, a2) {
+      var delta = a2 - a1
+      if (delta === 360) {
+        return (
+          'M ' +
+          (cx - r) +
+          ' ' +
+          cy +
+          ' a ' +
+          r +
+          ' ' +
+          r +
+          ' 0 1 0 ' +
+          r * 2 +
+          ' 0 a ' +
+          r +
+          ' ' +
+          r +
+          ' 0 1 0 ' +
+          -r * 2 +
+          ' 0z'
+        )
+      }
+
+      var largeArc = delta > 180 ? 1 : 0
+
+      a1 = a1 * RAD - PI_2
+      a2 = a2 * RAD - PI_2
+
+      var x1 = cx + r * Math.cos(a2)
+      var y1 = cy + r * Math.sin(a2)
+
+      var x2 = cx + r * Math.cos(a1)
+      var y2 = cy + r * Math.sin(a1)
+
+      return (
+        'M ' +
+        x1 +
+        ' ' +
+        y1 +
+        ' A ' +
+        r +
+        ' ' +
+        r +
+        ' 0 ' +
+        largeArc +
+        ' 0 ' +
+        x2 +
+        ' ' +
+        y2 +
+        ' L ' +
+        cx +
+        ' ' +
+        cy +
+        'z'
+      )
+    }
+  }
+
+  async hideTimer() {
+    this.timerTimeline.clear()
+    await gsap.to(this.elements.timerDiv, {
+      scale: 0,
+      duration: 0.3,
+      ease: 'expo.out'
+    })
+    this.elements.triggerWord.removeEventListener('mousemove', (e) =>
+      this.onMouseMove(e)
+    )
+  }
+
+  onMouseMove(e) {
+    gsap.to(this.elements.timerDiv, {
+      left: e.pageX - gsap.getProperty(this.elements.timerDiv, 'width') / 3.2,
+      top: e.pageY - gsap.getProperty(this.elements.timerDiv, 'height') / 1.4,
+      duration: 0.3
+    })
   }
 }

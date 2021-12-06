@@ -15,7 +15,17 @@ block content
           each item in words
             .words__thumbnails__wrapper(id=`image--${item.data.word.replace(/\s+/g, '_').toLowerCase()}`)
               img.words__thumbnail(data-src=item.data.thumbnail.url)
-                
+
+        .timer-div
+          svg(viewBox="0 0 100 100")
+            defs
+              clipPath(id="clipCircle")
+                circle(cx="50" cy="50" r="50")
+              clipPath(id="clipArc")
+                path(id="arcPath" d="")
+            g(clip-path="url(#clipCircle)")
+              circle( cx="50" cy="50" r="50" fill="currentColor" clip-path="url(#clipArc)")
+
         section.proposition
           .proposition__copy !{ PrismicDOM.RichText.asHtml(page.data.proposition) } 
 
