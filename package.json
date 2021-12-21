@@ -26,6 +26,7 @@
     "gsap": "^3.8.0",
     "include-media": "^1.4.10",
     "lodash": "^4.17.21",
+    "lottie-web": "^5.8.1",
     "morgan": "^1.10.0",
     "mouse-position": "^2.1.0",
     "nodemon": "^2.0.13",
@@ -36,6 +37,7 @@
     "pug": "^3.0.2"
   },
   "devDependencies": {
-    "concurrently": "^6.4.0"
+    "concurrently": "^6.4.0",
+    "sharp": "^0.29.3"
   }
 }

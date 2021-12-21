@@ -16,6 +16,14 @@
   }
 }
 
+.lottie {
+  width: 100px;
+  position: absolute;
+  left: 200px;
+  top: 100px;
+  opacity: 0.4;
+}
+
 .home__content__hello,
 .home__content__blurb {
   @extend %text-22;
