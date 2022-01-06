@@ -7,12 +7,12 @@ html(lang="en")
   
   body
     include ./partials/preloader
+    include ./partials/header
 
     .content#content(data-template=template)
       block content
 
     script.
-      WORDS = !{JSON.stringify(words) || JSON.stringify([])}
       CONFIG = !{JSON.stringify(config) || JSON.stringify([])}
       
     script(src="app/index.js")

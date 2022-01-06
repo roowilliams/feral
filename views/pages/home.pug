@@ -8,28 +8,41 @@ block content
   .home
     .home__wrapper
       .home__content
-        
-        section.content__words !{ PrismicDOM.RichText.asHtml(page.data.content) }
 
-        .words__thumbnails
-          each item in words
-            .words__thumbnails__wrapper(id=`image--${item.data.word.replace(/\s+/g, '_').toLowerCase()}`)
-              img.words__thumbnail(data-src=item.data.thumbnail.url)
+        section.intro
+          .intro__container
+            .intro__image_container
+              img.intro__image(data-src=`${page.data.intro_image.url}`)
+            p.intro__copy 
+              =page.data.intro
+            .intro__proposition
+              =page.data.proposition
 
-        .lottie
+        section.mission
+          .mission__stream_container
+            .mission__stream
+              //- use image as placeholder, may need to add information overlay div
+              //- =page.data.webcam_url
+          .mission__benefit
+            .benefit__copy !{ PrismicDOM.RichText.asHtml(page.data.benefit) }
+            .benefit__amount
+             |£!{page.data.donated}
 
-        .timer-div
-          svg(viewBox="0 0 100 100")
-            defs
-              clipPath(id="clipCircle")
-                circle(cx="50" cy="50" r="50")
-              clipPath(id="clipArc")
-                path(id="arcPath" d="")
-            g(clip-path="url(#clipCircle)")
-              circle( cx="50" cy="50" r="50" fill="currentColor" clip-path="url(#clipArc)")
+        section.about.grid.grid--2cols
+          .copy__column1 !{ PrismicDOM.RichText.asHtml(page.data.column_1) }
+          .copy__column1 !{ PrismicDOM.RichText.asHtml(page.data.column_2) }
 
-        section.proposition
-          .proposition__copy !{ PrismicDOM.RichText.asHtml(page.data.proposition) } 
+        section.motivation
+            .motivation_copy !{ PrismicDOM.RichText.asHtml(page.data.motivation_content) }
 
-        section.blurb
-          .blurb__copy !{ PrismicDOM.RichText.asHtml(page.data.blurb) } 
+        footer.footer.grid.grid--2cols
+          .footer__copy__container
+            .footer__cta !{ PrismicDOM.RichText.asHtml(page.data.cta) }
+            ul.footer__socials 
+              each social in page.data.socials
+                li
+                  a.social__link(href=`${social.social_url.url}`)
+                    =social.social_text
+
+          .footer__image_container
+            img.footer__image(data-src=`${page.data.contact_image.url}`)
