@@ -8,6 +8,7 @@ export default class Home extends Page {
       element: '.home',
       elements: {
         wrapper: '.home__wrapper',
+        logo: '.logo',
         proposition: '.proposition'
       }
     })

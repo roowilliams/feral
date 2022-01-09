@@ -1,94 +1,96 @@
-.grid {
-  display: grid;
-  gap: 2rem;
-
-  &--2cols {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  &--3cols {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  &--4cols {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
 .home {
   @extend %page;
 }
 
-.home__wrapper {
-  display: flex;
-  justify-content: center;
-}
-
-.home__content {
-  @include media('<phone') {
-    margin: 8rem 4rem;
-  }
-}
+// .home__content {
+//   @include media('<phone') {
+//     margin: 8rem 4rem;
+//   }
+// }
 
 section,
 footer {
-  padding: 14rem 8rem;
+  padding: 3rem 5.5rem;
   min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include media('<phone') {
+    min-height: auto;
+  }
 }
 
 .intro {
-  background-color: black;
-  // position: relative;
-
-  // padding: 0 8rem 16rem;
+  align-items: flex-start;
+  min-height: calc(100vh - 15rem);
   border-bottom: 1px solid black;
+  @include media('<phone') {
+    min-height: auto;
+  }
 }
 .intro__container {
   background-color: $color-main;
-  border: 0.3rem solid black;
   position: relative;
-  padding: 10rem 1rem;
-  margin: 0 -1rem;
+  padding: 2rem 1rem;
+
+  // margin: 0 -1rem;
 }
 
 .intro__copy {
-  margin-top: 4rem;
+  // margin-top: 4rem;
   margin-bottom: 10rem;
-  @extend %text-186;
+  font-size: 14.4rem;
+  line-height: 90%;
+  letter-spacing: -0.38rem;
   // text-align: justify;
   z-index: z('intro-copy');
   position: relative;
+  @include media('<phone') {
+    font-size: 8rem;
+  }
 }
 
 .intro__image_container {
   background-color: $color-main;
   position: absolute;
-  right: 24rem;
+  right: 2rem;
   top: 0rem;
   z-index: z('intro-image');
 }
 
 .intro__image {
   mix-blend-mode: multiply;
-  width: 100rem;
+  width: 73rem;
+  display: block;
+  @include media('<phone') {
+    width: 44rem;
+  }
 }
 
 .intro__proposition {
-  @extend %text-36;
+  font-size: 2.4rem;
   position: relative;
   // left: 13rem;
   // top: 24rem;
 
-  max-width: 50%;
-  padding: 1.3rem 1.8rem 1rem;
+  max-width: 40rem;
+  padding-left: 0.7rem;
   z-index: z('intro-copy');
 }
 
+.mission,
+.about,
+.motivation,
+.footer {
+  padding: 22rem 14rem;
+
+  @include media('<phone') {
+    padding: 10rem 4rem;
+  }
+}
+
 .mission {
-  padding: 22rem 24rem;
   background-color: white;
-  align-items: center;
-  justify-content: center;
   border-bottom: 1px solid black;
 }
 
@@ -97,10 +99,14 @@ footer {
   height: 60rem;
   border: 1px solid black;
   margin-bottom: 2rem;
+  @include media('<phone') {
+    width: 100%;
+    height: 36%;
+  }
 }
 .benefit__copy,
 .benefit__amount {
-  @extend %text-36;
+  font-size: 3.6rem;
   max-width: 64rem;
   margin-left: 4rem;
 
@@ -122,7 +128,6 @@ footer {
 }
 
 .about {
-  padding: 22rem 24rem;
   background-color: black;
   color: white;
 }
@@ -133,15 +138,19 @@ footer {
     @extend %title-64;
   }
   h3 {
-    font-weight: bold;
+    font-family: $font-nm-bold;
+    font-size: 1.8rem;
+    margin-bottom: 0.1rem;
+    letter-spacing: 0.1rem;
     text-transform: uppercase;
   }
   p,
   ul {
-    @extend %text-22;
-    margin-bottom: 4rem;
+    color: rgb(220, 220, 220);
+    font-size: 1.8rem;
+    line-height: 130%;
+    margin-bottom: 2.6rem;
   }
-  @extend %text-22;
 }
 
 .copy__column1 {
@@ -149,17 +158,20 @@ footer {
 }
 
 .motivation {
-  padding: 22rem 24rem;
   display: flex;
   align-items: center;
 }
 
-.motivation_copy {
+.motivation_copy,
+.footer__copy {
   h2 {
     @extend %title-72;
   }
   p {
-    @extend %text-52;
+    font-size: 3.6rem;
+    line-height: 110%;
+    letter-spacing: -0.1rem;
+    margin-bottom: 3rem;
   }
 }
 
@@ -168,11 +180,11 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22rem 24rem;
 }
 
-.footer__copy__container {
-  @extend %text-36;
+.footer__copy {
+  font-size: 3.6rem;
+  line-height: 100%;
   color: white;
   max-width: 82rem;
   display: flex;
@@ -184,10 +196,11 @@ footer {
   li {
     display: inline-block;
     text-transform: uppercase;
+    font-size: 2rem;
 
     &::after {
-      content: ' / ';
-      margin-right: 1rem;
+      content: '\0020\0020/\0020\0020';
+      white-space: pre;
     }
     &:last-of-type::after {
       content: '';

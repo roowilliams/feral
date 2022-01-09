@@ -1,13 +1,16 @@
 .header {
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  margin: 8.9rem;
+  margin: 4rem 7.3rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   z-index: z('header');
+
+  @include media('<phone') {
+    margin: 4rem;
+  }
 }
 
 .nav {
@@ -26,4 +29,12 @@
 .nav__link {
   color: $color-black;
   @extend %text-22;
+}
+
+.logo {
+  width: 14rem;
+  color: black;
+}
+
+.logo__container {
 }

@@ -7,6 +7,7 @@ block content
 
   .home
     .home__wrapper
+      include ../partials/header
       .home__content
 
         section.intro
@@ -19,24 +20,27 @@ block content
               =page.data.proposition
 
         section.mission
-          .mission__stream_container
-            .mission__stream
-              //- use image as placeholder, may need to add information overlay div
-              //- =page.data.webcam_url
-          .mission__benefit
-            .benefit__copy !{ PrismicDOM.RichText.asHtml(page.data.benefit) }
-            .benefit__amount
-             |£!{page.data.donated}
+          .mission__container
+            .mission__stream_container
+              include ../partials/livecam
 
-        section.about.grid.grid--2cols
-          .copy__column1 !{ PrismicDOM.RichText.asHtml(page.data.column_1) }
-          .copy__column1 !{ PrismicDOM.RichText.asHtml(page.data.column_2) }
+                //- use image as placeholder, may need to add information overlay div
+                //- =page.data.webcam_url
+            .mission__benefit
+              .benefit__copy !{ PrismicDOM.RichText.asHtml(page.data.benefit) }
+              .benefit__amount
+                |£!{page.data.donated}
+
+        section.about
+          .grid.grid--2cols
+            .copy__column1 !{ PrismicDOM.RichText.asHtml(page.data.column_1) }
+            .copy__column1 !{ PrismicDOM.RichText.asHtml(page.data.column_2) }
 
         section.motivation
             .motivation_copy !{ PrismicDOM.RichText.asHtml(page.data.motivation_content) }
 
         footer.footer.grid.grid--2cols
-          .footer__copy__container
+          .footer__copy
             .footer__cta !{ PrismicDOM.RichText.asHtml(page.data.cta) }
             ul.footer__socials 
               each social in page.data.socials

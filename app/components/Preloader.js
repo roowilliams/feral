@@ -33,6 +33,7 @@ export default class Preloader extends Component {
       const percent = this.length / this.elements.images.length
 
       this.elements.number.textContent = `${Math.round(percent * 100)}%`
+      image.classList.add('loaded')
 
       if (percent === 1) {
         this.onLoaded()
