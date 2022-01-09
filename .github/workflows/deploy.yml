@@ -27,7 +27,8 @@ jobs:
       
           script: |
             cd app
-            git clone git@github.com:roowilliams/feral.git
+            git clone git@github.com:roowilliams/feral.git .
+            cp /root/.env .env
             npm install
             npm run frontend:build
             npm run backend:build
