@@ -6,6 +6,11 @@
   bottom: 0;
 }
 
+%fill-screen {
+  width: 100%;
+  min-height: 100vh;
+}
+
 %center {
   display: flex;
   align-items: center;
@@ -20,4 +25,8 @@
 
 %page__wrapper {
   color: inherit;
+}
+
+%padded {
+  padding: 22rem 24rem;
 }

@@ -1,5 +1,6 @@
 import each from 'lodash/each'
 import gsap from 'gsap'
+import { clamp, lerp } from '../utils/math'
 import prefix from 'prefix'
 import map from 'lodash/map'
 
@@ -7,50 +8,19 @@ import NormalizeWheel from 'normalize-wheel'
 import AsyncLoad from '~/app/classes/AsyncLoad'
 
 export default class Page {
-  constructor({ element, elements, id }) {
+  constructor({ element, elements, id, isScrollable = true }) {
     this.selector = element
     this.selectorChildren = { ...elements, preloaders: '[data-src]' }
 
     this.id = id
 
+    this.isScrollable = isScrollable
     this.transformPrefix = prefix('transform')
-    this.x = {
-      start: 0,
-      distance: 0,
-      end: 0
-    }
-    this.y = {
-      start: 0,
-      distance: 0,
-      end: 0
-    }
-    this.speed = {
-      current: 0,
-      target: 0,
-      lerp: 0.3
-    }
-
-    this.scroll = {
-      x: 0,
-      y: 0
-    }
-
-    this.scrollCurrent = {
-      x: 0,
-      y: 0
-    }
   }
 
   create() {
     this.element = document.querySelector(this.selector)
     this.elements = {}
-
-    this.scroll = {
-      current: 0,
-      target: 0,
-      prev: 0,
-      limit: 0
-    }
 
     if (this.selector instanceof window.HTMLElement) {
       this.element = this.selector
@@ -77,6 +47,16 @@ export default class Page {
       }
     })
 
+    if (this.isScrollable) {
+      this.scroll = {
+        ease: 0.1,
+        position: 0,
+        current: 0,
+        target: 0,
+        limit: 0
+      }
+    }
+
     this.createPreloader()
   }
 
@@ -86,8 +66,21 @@ export default class Page {
     })
   }
 
+  transform(element, y) {
+    element.style[this.transformPrefix] = `translate3d(0, ${-Math.round(
+      y
+    )}px, 0)`
+  }
+
   show() {
     return new Promise((resolve) => {
+      if (this.isScrollable) {
+        this.scroll.position = 0
+        this.scroll.current = 0
+        this.scroll.target = 0
+      }
+
+      this.isVisible = true
       const tl = gsap.timeline()
       tl.to(this.element, { autoAlpha: 1 }).call(() => {
         this.addEventListeners()
@@ -103,10 +96,10 @@ export default class Page {
   }
 
   onResize() {
-    if (this.elements.wrapper) {
-      this.scroll.limit =
-        this.elements.wrapper.clientHeight - window.innerHeight
-    }
+    if (!this.isScrollable || !this.elements.wrapper) return
+
+    this.scroll.limit = this.elements.wrapper.clientHeight - window.innerHeight
+    this.update()
   }
 
   onMouseWheel(event) {
@@ -115,66 +108,57 @@ export default class Page {
   }
 
   onTouchDown(event) {
+    if (!this.isScrollable) return
+
     this.isDown = true
 
-    this.x.start = event.touches ? event.touches[0].clientX : event.clientX
-    this.y.start = event.touches ? event.touches[0].clientY : event.clientY
-
-    const values = {
-      x: this.x,
-      y: this.y
-    }
-
-    this.speed.target = 1
-
-    this.scrollCurrent.x = this.scroll.x
-    this.scrollCurrent.y = this.scroll.y
+    this.scroll.position = this.scroll.current
+    this.start = event.touches ? event.touches[0].clientY : event.clientY
   }
 
   onTouchMove(event) {
-    if (!this.isDown) return
-
-    const x = event.touches ? event.touches[0].clientX : event.clientX
-    const y = event.touches ? event.touches[0].clientY : event.clientY
-
-    this.x.end = x
-    this.y.end = y
-
-    const values = {
-      x: this.x,
-      y: this.y
+    if (!this.isDown || !this.isScrollable) {
+      return
     }
 
-    const xDistance = values.x.start - x.end
-    const yDistance = values.y.start - y.end
+    const y = event.touches ? event.touches[0].clientY : event.clientY
+    const distance = (this.start - y) * 2
 
-    this.x.target = this.scrollCurrent.x - xDistance
-    this.y.target = this.scrollCurrent.y - yDistance
+    this.scroll.target = this.scroll.position + distance
   }
 
   onTouchUp(event) {
+    if (!this.isScrollable) return
+
     this.isDown = false
-    this.speed.target = 0
+  }
+
+  onWheel(event) {
+    if (!this.isScrollable) return
+
+    const normalized = NormalizeWheel(event)
+    const speed = normalized.pixelY
+
+    this.scroll.target += speed
   }
 
   update() {
+    if (!this.isScrollable || !this.isVisible) return
+
+    this.scroll.target = clamp(0, this.scroll.limit, this.scroll.target)
+
+    this.scroll.current = lerp(
+      this.scroll.current,
+      this.scroll.target,
+      this.scroll.ease
+    )
+
+    if (this.scroll.current < 0.1) {
+      this.scroll.current = 0
+    }
+
     if (this.elements.wrapper) {
-      this.scroll.target = gsap.utils.clamp(
-        0,
-        this.scroll.limit,
-        this.scroll.target
-      )
-
-      this.scroll.current = gsap.utils.interpolate(
-        this.scroll.current,
-        this.scroll.target,
-        0.1
-      )
-      if (this.scroll.current < 0.01) this.scroll.current = 0
-
-      this.elements.wrapper.style[
-        this.transformPrefix
-      ] = `translateY(-${this.scroll.current}px)`
+      this.transform(this.elements.wrapper, this.scroll.current)
     }
   }
 

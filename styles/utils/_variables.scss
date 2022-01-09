@@ -1,4 +1,5 @@
 $color-black: #000;
+$color-main: #ccff00;
 $color-black-lighter: #050505;
 $color-gray: rgb(100, 100, 100);
 $color-snow: #f4f4f4;
@@ -10,4 +11,4 @@ $font-nm-regular: 'NeueMontreal Regular';
 $font-header: 'EditorialNew-Regular';
 $font-body: 'Roboto';
 
-$z-indexes: ('preloader', 'world', 'content', 'thumbnail');
+$z-indexes: ('preloader', 'header', 'content', 'intro-copy', 'intro-image');

@@ -2,8 +2,6 @@ import './utils/polyfills.js'
 import Preloader from './components/Preloader'
 
 import Home from './pages/Home'
-import World from './pages/World'
-import Test from './pages/Test'
 import each from 'lodash/each'
 
 class App {
@@ -33,9 +31,7 @@ class App {
 
   createPages() {
     this.pages = {
-      home: new Home(),
-      world: new World(),
-      test: new Test()
+      home: new Home()
     }
 
     this.page = this.pages[this.template]
