@@ -33,6 +33,5 @@ jobs:
             cd app
             npm install
             npm run frontend:build
-            npm run backend:build
-            echo Finished.
+            pm2 start --name=NodeApp app.js
             
