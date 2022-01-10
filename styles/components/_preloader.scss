@@ -3,9 +3,17 @@
   @extend %center;
   background: black;
   z-index: z('preloader');
+  display: flex;
+  flex-direction: column;
 }
 
 .preloader__number {
   @extend %text-36;
   color: white;
+}
+
+.preloader .logo {
+  color: white;
+  width: 30rem;
+  margin-bottom: 3rem;
 }
