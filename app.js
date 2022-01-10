@@ -4,6 +4,7 @@ const express = require('express')
 const path = require('path')
 const app = express()
 const port = 3000
+const { cmsEndpoint } = require('./package.json')
 
 const find = require('lodash/find')
 const filter = require('lodash/filter')
@@ -25,7 +26,7 @@ function linkResolver(doc) {
 }
 
 function initApi(req) {
-  return Prismic.getApi(process.env.PRISMIC_API_ENDPOINT, {
+  return Prismic.getApi(cmsEndpoint, {
     req: req
   })
 }
@@ -33,7 +34,7 @@ function initApi(req) {
 // Middleware to inject prismic context
 app.use((req, res, next) => {
   res.locals.ctx = {
-    endpoint: process.env.PRISMIC_API_ENDPOINT,
+    endpoint: cmsEndpoint,
     linkResolver: linkResolver
   }
   // add PrismicDOM in locals to access them in templates.

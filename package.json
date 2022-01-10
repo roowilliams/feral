@@ -9,6 +9,7 @@
     "frontend:dev": "parcel styles/main.scss assets/* app/index.js --dist-dir ./public",
     "dev": "concurrently \"npm:frontend:dev\" \"npm:backend:dev\""
   },
+  "cmsEndpoint": "https://feral.cdn.prismic.io/api/v2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/roowilliams/feral.git"

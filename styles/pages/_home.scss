@@ -193,6 +193,7 @@ footer {
 }
 
 .footer__socials {
+  white-space: nowrap;
   li {
     display: inline-block;
     text-transform: uppercase;
@@ -210,6 +211,7 @@ footer {
 }
 
 .footer__image {
+  max-width: 100%;
 }
 
 .footer__image_container {
