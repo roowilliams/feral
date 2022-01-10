@@ -89,7 +89,7 @@ app.get('/', async (req, res) => {
     preloader,
     page,
     config,
-    meta: { description: 'desc', title: 'yolo' }
+    meta: { description: config.site_description, title: config.site_title }
   })
 })
 
