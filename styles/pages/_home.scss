@@ -126,6 +126,9 @@ footer {
 
 .copy__column1,
 .copy__column1 {
+  @include media('<phone') {
+    margin-bottom: 10rem;
+  }
   h2 {
     @extend %title-64;
   }
