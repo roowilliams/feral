@@ -21,11 +21,6 @@ export default class Preloader extends Component {
   }
 
   createLoader() {
-    gsap.set('.letter', {
-      y: 100,
-      scale: 0.4
-    })
-
     if (this.elements.images) {
       each(this.elements.images, (element) => {
         element.onload = () => this.onAssetLoaded(element)
@@ -38,12 +33,16 @@ export default class Preloader extends Component {
 
   onAssetLoaded(image) {
     if (this.elements.number) {
-      gsap.to(this.elements.paths, {
-        y: 0,
-        scale: 1,
-        stagger: '0.1',
-        ease: 'expo.out'
-      })
+      gsap.fromTo(
+        '.preloader .letter',
+        { y: 100, scale: 0.4 },
+        {
+          y: 0,
+          scale: 1,
+          stagger: '0.1',
+          ease: 'expo.out'
+        }
+      )
       this.length++
       const percent = this.length / this.elements.images.length
       this.elements.number.textContent = `${Math.round(percent * 100)}%`
