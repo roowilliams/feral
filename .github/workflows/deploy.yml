@@ -26,10 +26,12 @@ jobs:
           username: ${{secrets.SSH_USERNAME}}
       
           script: |
+            rm -rf app
+            mkdir app
+            git clone git@github.com:roowilliams/feral.git app
+            cp /root/.env /root/app/.env
             cd app
-            git clone git@github.com:roowilliams/feral.git
             npm install
             npm run frontend:build
-            npm run backend:build
-            echo Finished.
+            pm2 start --name=NodeApp app.js
             
