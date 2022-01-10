@@ -27,7 +27,7 @@ export default class Preloader extends Component {
       {
         y: 0,
         scale: 1,
-        stagger: '0.1',
+        stagger: { amount: '0.2', from: 'center' },
         ease: 'expo.out',
         autoAlpha: 1
       }
