@@ -1,4 +1,3 @@
-require('dotenv').config()
 const morgan = require('morgan')
 const express = require('express')
 const path = require('path')
@@ -86,7 +85,6 @@ app.get('/', async (req, res) => {
   const page = find(results, { type: 'index_page' })
   const config = filter(results, { type: 'config' })[0].data
 
-  console.log(page)
   res.render('pages/home', {
     preloader,
     page,
