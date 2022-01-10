@@ -35,12 +35,13 @@ export default class Preloader extends Component {
     if (this.elements.number) {
       gsap.fromTo(
         '.preloader .letter',
-        { y: 100, scale: 0.4 },
+        { y: 100, scale: 0.4, autoAlpha: 0.4 },
         {
           y: 0,
           scale: 1,
           stagger: '0.1',
-          ease: 'expo.out'
+          ease: 'expo.out',
+          autoAlpha: 1
         }
       )
       this.length++
