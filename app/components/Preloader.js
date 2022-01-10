@@ -23,15 +23,15 @@ export default class Preloader extends Component {
         element.onload = () => this.onAssetLoaded(element)
         element.src = element.getAttribute('data-src')
       })
+    } else {
+      return this.onLoaded()
     }
-    return this.onLoaded()
   }
 
   onAssetLoaded(image) {
     if (this.elements.number) {
       this.length++
       const percent = this.length / this.elements.images.length
-
       this.elements.number.textContent = `${Math.round(percent * 100)}%`
       image.classList.add('loaded')
 
