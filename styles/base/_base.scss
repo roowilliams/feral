@@ -28,6 +28,7 @@ body {
   position: fixed;
   background-color: $color-main;
   color: $color-black;
+  touch-action: pan-x pan-y;
 }
 
 a {
