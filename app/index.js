@@ -95,12 +95,23 @@ class App {
     this.frame = window.requestAnimationFrame(() => this.update())
   }
 
+  isExternal(url) {
+    return !(
+      location.href
+        .replace('http://', '')
+        .replace('https://', '')
+        .split('/')[0] ===
+      url.replace('http://', '').replace('https://', '').split('/')[0]
+    )
+  }
   // Listeners
   addLinkListeners() {
     const links = document.querySelectorAll('a')
 
     each(links, (link) => {
       link.onclick = (event) => {
+        if (this.isExternal(link.href)) return
+
         event.preventDefault()
         const { href } = link
         this.onNavigate({ url: href })

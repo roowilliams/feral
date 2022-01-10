@@ -45,7 +45,7 @@ block content
             ul.footer__socials 
               each social in page.data.socials
                 li
-                  a.social__link(href=`${social.social_url.url}`)
+                  a.social__link(href=`${social.social_url.url}` target='_blank')
                     =social.social_text
 
           .footer__image_container
