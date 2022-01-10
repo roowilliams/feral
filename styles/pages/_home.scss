@@ -10,13 +10,14 @@
 
 section,
 footer {
-  padding: 3rem 5.5rem;
+  padding: 22rem 14rem;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   @include media('<phone') {
     min-height: auto;
+    padding: 10rem 4rem;
   }
 }
 
@@ -24,8 +25,10 @@ footer {
   align-items: flex-start;
   min-height: calc(100vh - 15rem);
   border-bottom: 1px solid black;
+  padding: 10rem 6rem;
   @include media('<phone') {
     min-height: auto;
+    padding: 10rem 4rem;
   }
 }
 .intro__container {
@@ -76,17 +79,6 @@ footer {
   max-width: 40rem;
   padding-left: 0.7rem;
   z-index: z('intro-copy');
-}
-
-.mission,
-.about,
-.motivation,
-.footer {
-  padding: 22rem 14rem;
-
-  @include media('<phone') {
-    padding: 10rem 4rem;
-  }
 }
 
 .mission {
@@ -190,6 +182,7 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-right: 4rem;
 }
 
 .footer__socials {
