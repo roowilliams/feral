@@ -26,14 +26,15 @@ body {
   font-family: $font-nm-regular;
   @extend %cover;
   position: fixed;
-  background-color: $color-main;
-  color: $color-black;
+  background-color: white;
+  color: black;
   touch-action: pan-x pan-y;
 }
 
 a {
   text-decoration: none;
-  color: white;
+  color: black;
+  font-weight: bold;
   text-decoration: underline;
   &:hover {
     text-decoration: none;
