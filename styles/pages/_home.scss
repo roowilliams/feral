@@ -24,7 +24,6 @@ footer {
 .intro {
   align-items: flex-start;
   min-height: calc(100vh - 15rem);
-  border-bottom: 1px solid black;
   padding: 10rem 6rem;
   @include media('<phone') {
     min-height: auto;
@@ -81,7 +80,6 @@ footer {
 
 .mission {
   background-color: white;
-  border-bottom: 1px solid black;
 }
 
 .mission__stream_container {
@@ -98,7 +96,6 @@ footer {
 .benefit__amount {
   font-size: 3.6rem;
   max-width: 64rem;
-  margin-left: 4rem;
 
   p {
     margin-bottom: 4rem;
@@ -112,9 +109,6 @@ footer {
 .benefit__amount {
   @extend %text-52;
   text-decoration: underline;
-  display: inline-block;
-  padding: 0 1rem;
-  margin-left: 3rem;
 }
 
 .about {
