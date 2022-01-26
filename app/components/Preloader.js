@@ -32,7 +32,7 @@ export default class Preloader extends Component {
         autoAlpha: 1
       }
     )
-    if (this.elements.images) {
+    if (this.elements.images.length) {
       each(this.elements.images, (element) => {
         element.onload = () => this.onAssetLoaded(element)
         element.src = element.getAttribute('data-src')
